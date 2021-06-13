@@ -1,21 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, Text } from 'react-native';
+import styled from 'styled-components/native'
 
-export default function App() {
+const Container = styled.View({
+  flex: 1,
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+})
+
+const Footer = styled.View({
+  position: 'absolute',
+  bottom: 0,
+  marginBottom: 32,
+  width: 160,
+})
+
+const App = () => {
+  const [value, setValue] = useState<number>()
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <Container>
+      <Text>Value: {value}</Text>
+      <Footer><Button onPress={() => setValue(Math.floor(Math.random() * 6) + 1)} title="Throw!" accessibilityLabel="Press here to throw the dice"/></Footer>
       <StatusBar style="auto" />
-    </View>
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
