@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/lapanti/dice/compare/v1.1.0...v1.2.0) (2021-06-18)
+
+
+### Features
+
+* add visual dice ([3f59d6a](https://github.com/lapanti/dice/commit/3f59d6ae4c99fa0d3cb1da598b026a8293ab7517))
+
 ## 1.1.0 (2021-06-16)
 
 
