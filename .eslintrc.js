@@ -11,7 +11,7 @@ const config = {
         'plugin:prettier/recommended',
         'prettier',
         'plugin:@typescript-eslint/recommended',
-        'plugin:react/recommended'
+        'plugin:react/recommended',
     ],
     overrides: [
         {
