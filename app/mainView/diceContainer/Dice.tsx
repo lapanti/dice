@@ -1,10 +1,14 @@
-import React from 'react'
+import type { Dice as DiceType } from '../../../types/dice'
+
+import React, { useCallback } from 'react'
 // eslint-disable-next-line import/namespace,import/named
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native'
 
-import useAnimatedOpacity from '../hooks/useAnimatedOpacity'
-import useAppSelector from '../hooks/useAppSelector'
-import { getDiceSelector } from '../store/ducks/dice'
+import useAnimatedOpacity from '../../../hooks/useAnimatedOpacity'
+import useAppDispatch from '../../../hooks/useAppDispatch'
+import useInterval from '../../../hooks/useInterval'
+import useTimeout from '../../../hooks/useTimeout'
+import { roll, startRolling, stopRolling } from '../../../store/ducks/dice'
 
 const top = 25
 const right = top
@@ -22,6 +26,7 @@ const styles = StyleSheet.create({
         width: 120,
         borderRadius: 10,
         border: `4px solid black`,
+        margin: 8,
     },
     dot: {
         position: 'absolute',
@@ -83,14 +88,26 @@ const middleRightValues = [2, 6]
 const bottomRightValues = [3, 4, 5, 6]
 
 interface Props {
+    dice: DiceType
     index: number
-    onPress: () => void
 }
 
-const Dice = ({ index, onPress }: Props): JSX.Element | null => {
-    const dice = useAppSelector(getDiceSelector(index))
+const Dice = ({ dice, index }: Props): JSX.Element => {
+    const dispatch = useAppDispatch()
 
-    const value = dice?.value ?? 0
+    useInterval(() => {
+        dispatch(roll(index))
+    }, dice?.rolling ?? false)
+
+    useTimeout(() => {
+        dispatch(stopRolling(index))
+    }, dice?.rolling ?? false)
+
+    const onPress = useCallback(() => {
+        dispatch(startRolling(index))
+    }, [dispatch, index])
+
+    const value = dice.value
 
     const fadeTopLeft = useAnimatedOpacity(topLeftValues, value)
     const fadeMiddleLeft = useAnimatedOpacity(middleLeftValues, value)
@@ -100,7 +117,7 @@ const Dice = ({ index, onPress }: Props): JSX.Element | null => {
     const fadeMiddleRight = useAnimatedOpacity(middleRightValues, value)
     const fadeBottomRight = useAnimatedOpacity(bottomRightValues, value)
 
-    return dice ? (
+    return (
         <TouchableOpacity style={styles.die} onPress={onPress}>
             <Animated.View style={[styles.dot, styles.topLeftDot, { opacity: fadeTopLeft }]} />
             <Animated.View style={[styles.dot, styles.middleLeftDot, { opacity: fadeMiddleLeft }]} />
@@ -110,7 +127,7 @@ const Dice = ({ index, onPress }: Props): JSX.Element | null => {
             <Animated.View style={[styles.dot, styles.middleRightDot, { opacity: fadeMiddleRight }]} />
             <Animated.View style={[styles.dot, styles.bottomRightDot, { opacity: fadeBottomRight }]} />
         </TouchableOpacity>
-    ) : null
+    )
 }
 
 export default Dice

@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react'
 
+import { interval } from '../lib/rolling'
+
 /** https://usehooks-typescript.com/react-hook/use-interval */
 
-const useInterval = (callback: () => void, delay: number | null) => {
+const useInterval = (callback: () => void, run: boolean) => {
     const savedCallback = useRef(callback)
 
     // Remember the latest callback if it changes.
@@ -13,14 +15,12 @@ const useInterval = (callback: () => void, delay: number | null) => {
     // Set up the interval.
     useEffect(() => {
         // Don't schedule if no delay is specified.
-        if (delay === null) {
-            return
+        if (run) {
+            const id = setInterval(() => savedCallback.current(), interval)
+
+            return () => clearInterval(id)
         }
-
-        const id = setInterval(() => savedCallback.current(), delay)
-
-        return () => clearInterval(id)
-    }, [delay])
+    }, [run])
 }
 
 export default useInterval
