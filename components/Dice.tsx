@@ -3,6 +3,8 @@ import React from 'react'
 import { Animated, StyleSheet, TouchableOpacity } from 'react-native'
 
 import useAnimatedOpacity from '../hooks/useAnimatedOpacity'
+import useAppSelector from '../hooks/useAppSelector'
+import { getDiceSelector } from '../store/ducks/dice'
 
 const top = 25
 const right = top
@@ -18,7 +20,7 @@ const styles = StyleSheet.create({
     die: {
         height: 120,
         width: 120,
-        borderRadius: 4,
+        borderRadius: 10,
         border: `4px solid black`,
     },
     dot: {
@@ -81,11 +83,16 @@ const middleRightValues = [2, 6]
 const bottomRightValues = [3, 4, 5, 6]
 
 interface Props {
-    value: number
+    index: number
     onPress: () => void
 }
 
-const Dice = ({ value, onPress }: Props): JSX.Element => {
+const Dice = ({ index, onPress }: Props): JSX.Element | null => {
+    const dice = useAppSelector(getDiceSelector(index))
+    const state = useAppSelector((state) => state)
+
+    const value = dice?.value ?? 0
+
     const fadeTopLeft = useAnimatedOpacity(topLeftValues, value)
     const fadeMiddleLeft = useAnimatedOpacity(middleLeftValues, value)
     const fadeBottomLeft = useAnimatedOpacity(bottomLeftValues, value)
@@ -94,7 +101,11 @@ const Dice = ({ value, onPress }: Props): JSX.Element => {
     const fadeMiddleRight = useAnimatedOpacity(middleRightValues, value)
     const fadeBottomRight = useAnimatedOpacity(bottomRightValues, value)
 
-    return (
+    console.log('state', state)
+    console.log('index', index)
+    console.log('dice', dice)
+
+    return dice ? (
         <TouchableOpacity style={styles.die} onPress={onPress}>
             <Animated.View style={[styles.dot, styles.topLeftDot, { opacity: fadeTopLeft }]} />
             <Animated.View style={[styles.dot, styles.middleLeftDot, { opacity: fadeMiddleLeft }]} />
@@ -104,7 +115,7 @@ const Dice = ({ value, onPress }: Props): JSX.Element => {
             <Animated.View style={[styles.dot, styles.middleRightDot, { opacity: fadeMiddleRight }]} />
             <Animated.View style={[styles.dot, styles.bottomRightDot, { opacity: fadeBottomRight }]} />
         </TouchableOpacity>
-    )
+    ) : null
 }
 
 export default Dice
