@@ -1,42 +1,65 @@
 import { StatusBar } from 'expo-status-bar'
 import React, { useCallback, useState } from 'react'
-// eslint-disable-next-line
-import { Button, Text } from 'react-native'
-import styled from 'styled-components/native'
+// eslint-disable-next-line import/namespace,import/named
+import { ActivityIndicator, Button, StyleSheet, Text, View } from 'react-native'
 
 import Dice from './components/Dice'
+import useInterval from './hooks/useInterval'
+import useTimeout from './hooks/useTimeout'
 
-const Container = styled.View({
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    title: {
+        position: 'absolute',
+        top: 32,
+        fontSize: 24,
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 32,
+        width: 160,
+    },
 })
 
-const Footer = styled.View({
-    position: 'absolute',
-    bottom: 0,
-    marginBottom: 32,
-    width: 160,
-})
+const delay = 100
 
 const App = () => {
-    const [value, setValue] = useState<number>(6)
+    const [value, setValue] = useState<number>(5)
+    const [rolling, setRolling] = useState(false)
+
+    useInterval(
+        () => {
+            setValue(Math.floor(Math.random() * 6) + 1)
+        },
+        rolling ? delay : null
+    )
+
+    useTimeout(
+        () => {
+            setRolling(false)
+        },
+        rolling ? 1000 : null
+    )
 
     const onPress = useCallback(() => {
-        setValue(Math.floor(Math.random() * 6) + 1)
+        setRolling(true)
     }, [])
 
     return (
-        <Container>
+        <View style={styles.container}>
+            <Text style={styles.title}>Total value: {rolling ? <ActivityIndicator color="black" /> : value}</Text>
             <Dice value={value} onPress={onPress} />
-            <Text>Total value: {value}</Text>
-            <Footer>
+            <View style={styles.footer}>
                 <Button accessibilityLabel="Press here to throw the dice" title="Throw!" onPress={onPress} />
-            </Footer>
+            </View>
             {/* eslint-disable-next-line react/style-prop-object */}
             <StatusBar style="auto" />
-        </Container>
+        </View>
     )
 }
 
