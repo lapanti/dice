@@ -89,7 +89,6 @@ interface Props {
 
 const Dice = ({ index, onPress }: Props): JSX.Element | null => {
     const dice = useAppSelector(getDiceSelector(index))
-    const state = useAppSelector((state) => state)
 
     const value = dice?.value ?? 0
 
@@ -100,10 +99,6 @@ const Dice = ({ index, onPress }: Props): JSX.Element | null => {
     const fadeTopRight = useAnimatedOpacity(topRightValues, value)
     const fadeMiddleRight = useAnimatedOpacity(middleRightValues, value)
     const fadeBottomRight = useAnimatedOpacity(bottomRightValues, value)
-
-    console.log('state', state)
-    console.log('index', index)
-    console.log('dice', dice)
 
     return dice ? (
         <TouchableOpacity style={styles.die} onPress={onPress}>

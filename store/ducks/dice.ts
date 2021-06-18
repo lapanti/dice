@@ -34,15 +34,25 @@ export const diceSlice = createSlice({
         add: (state, { payload: { min, max, value } }: PayloadAction<{ min: number; max: number; value: number }>) => {
             state.dice.push({ min, max, rolling: false, value: clamp(value, min, max) })
         },
-        roll: (state, { payload: { index, value } }: PayloadAction<{ index: number; value: number }>) => {
-            state.dice[index].value = clamp(value, state.dice[index].min, state.dice[index].max)
+        startRolling: (state, { payload: index }: PayloadAction<number>) => {
+            state.dice[index].rolling = true
+        },
+        stopRolling: (state, { payload: index }: PayloadAction<number>) => {
+            state.dice[index].rolling = false
+        },
+        roll: (state, { payload: index }: PayloadAction<number>) => {
+            state.dice[index].value = getRandomInt(state.dice[index].min, state.dice[index].max)
         },
     },
 })
 
-export const { add, roll } = diceSlice.actions
+export const { add, startRolling, stopRolling, roll } = diceSlice.actions
 
 export const getDiceSelector = (index: number) => (state: RootState) =>
     state.dice.dice.length > index ? state.dice.dice[index] : undefined
+
+export const rollingSelector = (state: RootState) => state.dice.dice.some(({ rolling }) => rolling)
+
+export const totalSelector = (state: RootState) => state.dice.dice.reduce((acc, { value }) => acc + value, 0)
 
 export default diceSlice.reducer
