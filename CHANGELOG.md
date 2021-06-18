@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/lapanti/dice/compare/v1.3.2...v2.0.0) (2021-06-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* support for multiple dice
+
+### Features
+
+* support for multiple dice ([e261e32](https://github.com/lapanti/dice/commit/e261e32dd939be698f68c17f376c152d0a189b53))
+
 ### [1.3.2](https://github.com/lapanti/dice/compare/v1.3.1...v1.3.2) (2021-06-18)
 
 ### [1.3.1](https://github.com/lapanti/dice/compare/v1.3.0...v1.3.1) (2021-06-18)
