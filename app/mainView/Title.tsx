@@ -8,16 +8,16 @@ import { rollingSelector, totalSelector } from '../../store/ducks/dice'
 const styles = StyleSheet.create({
     title: {
         position: 'absolute',
-        top: 32,
+        top: 40,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
     },
     titleValue: {
-        marginLeft: 4,
-        width: 32,
+        marginLeft: 8,
+        minWidth: 32,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     titleText: {
         fontSize: 24,

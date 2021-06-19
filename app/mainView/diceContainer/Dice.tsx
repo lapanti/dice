@@ -10,7 +10,7 @@ import useInterval from '../../../hooks/useInterval'
 import useTimeout from '../../../hooks/useTimeout'
 import { roll, startRolling, stopRolling } from '../../../store/ducks/dice'
 
-const top = 25
+const top = '20%'
 const right = top
 const bottom = right
 const left = bottom
@@ -22,8 +22,8 @@ const marginLeft = marginBottom
 
 const styles = StyleSheet.create({
     die: {
-        height: 120,
-        width: 120,
+        height: 100,
+        width: 100,
         borderRadius: 10,
         borderWidth: 4,
         borderStyle: 'solid',
