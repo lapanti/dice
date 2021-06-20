@@ -2,7 +2,7 @@
   "expo": {
     "name": "dice",
     "slug": "dice",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "2.1.0"
+      "buildNumber": "2.2.0"
     },
     "android": {
       "adaptiveIcon": {

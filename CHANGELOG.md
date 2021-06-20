@@ -1,3 +1,11 @@
+# [2.2.0](https://github.com/lapanti/dice/compare/v2.1.0...v2.2.0) (2021-06-20)
+
+
+### Features
+
+* rudimentary configuration view ([851877f](https://github.com/lapanti/dice/commit/851877f6dc7547442e8b05b45348c349d4152a1e))
+* rudimentary support for colored dice ([4b76c63](https://github.com/lapanti/dice/commit/4b76c63c7d946bdc7259ba133b27b971d4614194))
+
 # [2.1.0](https://github.com/lapanti/dice/compare/v2.0.3...v2.1.0) (2021-06-20)
 
 
