@@ -120,7 +120,7 @@ const Dice = ({ dice, index }: Props): JSX.Element => {
     const fadeBottomRight = useAnimatedOpacity(bottomRightValues, value)
 
     return (
-        <TouchableOpacity style={styles.die} onPress={onPress}>
+        <TouchableOpacity style={[styles.die, { backgroundColor: dice.color }]} onPress={onPress}>
             <Animated.View style={[styles.dot, styles.topLeftDot, { opacity: fadeTopLeft }]} />
             <Animated.View style={[styles.dot, styles.middleLeftDot, { opacity: fadeMiddleLeft }]} />
             <Animated.View style={[styles.dot, styles.bottomLeftDot, { opacity: fadeBottomLeft }]} />

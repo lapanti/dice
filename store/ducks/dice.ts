@@ -4,13 +4,14 @@ import type { RootState } from '../store'
 
 import { createSlice } from '@reduxjs/toolkit'
 
-import { clamp, getRandomInt } from '../../lib/number'
+import { getRandomInt } from '../../lib/number'
 
 interface DiceState {
     dice: Dice[]
 }
 
 const initialD6: Dice = {
+    color: 'white',
     min: 1,
     max: 6,
     rolling: false,
@@ -25,8 +26,12 @@ export const diceSlice = createSlice({
     name: 'dice',
     initialState,
     reducers: {
-        add: (state, { payload: { min, max, value } }: PayloadAction<{ min: number; max: number; value: number }>) => {
-            state.dice.push({ min, max, rolling: false, value: clamp(value, min, max) })
+        add: (state, { payload }: PayloadAction<Partial<Dice>>) => {
+            state.dice.push({
+                ...initialD6,
+                ...payload,
+                value: getRandomInt(payload?.min ?? initialD6.min, payload?.max ?? initialD6.max),
+            })
         },
         startRolling: (state, { payload: index }: PayloadAction<number>) => {
             state.dice[index].rolling = true
