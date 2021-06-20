@@ -86,7 +86,8 @@
           "package.json",
           "package-lock.json",
           "app.json"
-        ]
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
     "publish": [
