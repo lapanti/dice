@@ -94,7 +94,7 @@ interface Props {
     index: number
 }
 
-const Dice = ({ dice, index }: Props): JSX.Element => {
+const D6Dice = ({ dice, index }: Props): JSX.Element => {
     const dispatch = useAppDispatch()
 
     useInterval(() => {
@@ -132,4 +132,4 @@ const Dice = ({ dice, index }: Props): JSX.Element => {
     )
 }
 
-export default Dice
+export default D6Dice

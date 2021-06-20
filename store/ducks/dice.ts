@@ -33,6 +33,9 @@ export const diceSlice = createSlice({
                 value: getRandomInt(payload?.min ?? initialD6.min, payload?.max ?? initialD6.max),
             })
         },
+        remove: (state, { payload: index }: PayloadAction<number>) => {
+            state.dice.splice(index, 1)
+        },
         startRolling: (state, { payload: index }: PayloadAction<number>) => {
             state.dice[index].rolling = true
         },
@@ -54,7 +57,8 @@ export const diceSlice = createSlice({
     },
 })
 
-export const { add, startRolling, stopRolling, roll, startRollingAll, stopRollingAll, rollAll } = diceSlice.actions
+export const { add, remove, startRolling, stopRolling, roll, startRollingAll, stopRollingAll, rollAll } =
+    diceSlice.actions
 
 export const allDiceSelector = (state: RootState) => state.dice.dice
 

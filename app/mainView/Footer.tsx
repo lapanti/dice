@@ -6,8 +6,7 @@ import { Button } from 'react-native-paper'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import useInterval from '../../hooks/useInterval'
 import useTimeout from '../../hooks/useTimeout'
-import { getRandomInt } from '../../lib/number'
-import { add, rollAll, startRollingAll, stopRollingAll } from '../../store/ducks/dice'
+import { rollAll, startRollingAll, stopRollingAll } from '../../store/ducks/dice'
 import Total from './footer/Total'
 
 const styles = StyleSheet.create({
@@ -40,10 +39,6 @@ const Footer = (): JSX.Element => {
         setStateRolling(true)
     }, [dispatch])
 
-    const onAdd = useCallback(() => {
-        dispatch(add({ min: 1, max: 6, value: getRandomInt() }))
-    }, [dispatch])
-
     return (
         <View style={styles.footer}>
             <Total />
@@ -55,11 +50,6 @@ const Footer = (): JSX.Element => {
                     onPress={onRoll}
                 >
                     Throw all!
-                </Button>
-            </View>
-            <View style={styles.buttonContainer}>
-                <Button accessibilityLabel="Press here to add a dice" mode="outlined" onPress={onAdd}>
-                    Add
                 </Button>
             </View>
         </View>

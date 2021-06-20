@@ -12,13 +12,13 @@ const theme = {
 
 const App = () => {
     return (
-        <PaperProvider theme={theme}>
-            <Provider store={store}>
+        <Provider store={store}>
+            <PaperProvider theme={theme}>
                 <MainView />
                 {/* eslint-disable-next-line react/style-prop-object */}
                 <StatusBar style="auto" />
-            </Provider>
-        </PaperProvider>
+            </PaperProvider>
+        </Provider>
     )
 }
 

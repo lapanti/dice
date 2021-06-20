@@ -3,9 +3,9 @@ import React, { useCallback, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { IconButton } from 'react-native-paper'
 
+import Configuration from './mainView/Configuration'
 import DiceContainer from './mainView/DiceContainer'
 import Footer from './mainView/Footer'
-import Settings from './mainView/Settings'
 
 const styles = StyleSheet.create({
     container: {
@@ -38,7 +38,7 @@ const MainView = () => {
     return (
         <View style={styles.container}>
             <IconButton icon="cog" size={32} style={styles.settingsIcon} onPress={showSettings} />
-            <Settings hide={hideSettings} visible={settingsVisible} />
+            <Configuration hide={hideSettings} visible={settingsVisible} />
             <DiceContainer />
             <Footer />
         </View>

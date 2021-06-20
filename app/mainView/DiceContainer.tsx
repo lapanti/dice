@@ -5,7 +5,7 @@ import { Surface } from 'react-native-paper'
 
 import useAppSelector from '../../hooks/useAppSelector'
 import { allDiceSelector } from '../../store/ducks/dice'
-import Dice from './diceContainer/Dice'
+import D6Dice from './diceContainer/D6Dice'
 
 const styles = StyleSheet.create({
     surface: {
@@ -32,7 +32,7 @@ const DiceContainer = () => {
         <Surface style={styles.surface}>
             <ScrollView contentContainerStyle={styles.container} style={styles.scrollView}>
                 {allDice.map((dice, i) => (
-                    <Dice key={i} dice={dice} index={i} />
+                    <D6Dice key={i} dice={dice} index={i} />
                 ))}
             </ScrollView>
         </Surface>
