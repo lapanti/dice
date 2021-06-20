@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/lapanti/dice/compare/v2.0.3...v2.1.0) (2021-06-20)
+
+
+### Features
+
+* add settings view ([10dfca1](https://github.com/lapanti/dice/commit/10dfca1cadbed445eac925a2ff8ecd1f36b5c516))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
