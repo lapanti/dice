@@ -1,17 +1,20 @@
 import React, { useCallback, useState } from 'react'
 // eslint-disable-next-line import/namespace,import/named
-import { Button, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { Button } from 'react-native-paper'
 
 import useAppDispatch from '../../hooks/useAppDispatch'
 import useInterval from '../../hooks/useInterval'
 import useTimeout from '../../hooks/useTimeout'
 import { getRandomInt } from '../../lib/number'
 import { add, rollAll, startRollingAll, stopRollingAll } from '../../store/ducks/dice'
+import Total from './footer/Total'
 
 const styles = StyleSheet.create({
     footer: {
-        position: 'absolute',
-        bottom: 32,
+        width: '100%',
+        alignItems: 'center',
+        marginBottom: 16,
     },
     buttonContainer: {
         marginTop: 24,
@@ -20,21 +23,21 @@ const styles = StyleSheet.create({
 })
 
 const Footer = (): JSX.Element => {
-    const [rolling, setRolling] = useState(false)
+    const [stateRolling, setStateRolling] = useState(false)
     const dispatch = useAppDispatch()
 
     useInterval(() => {
         dispatch(rollAll())
-    }, rolling)
+    }, stateRolling)
 
     useTimeout(() => {
         dispatch(stopRollingAll())
-        setRolling(false)
-    }, rolling)
+        setStateRolling(false)
+    }, stateRolling)
 
     const onRoll = useCallback(() => {
         dispatch(startRollingAll())
-        setRolling(true)
+        setStateRolling(true)
     }, [dispatch])
 
     const onAdd = useCallback(() => {
@@ -43,11 +46,21 @@ const Footer = (): JSX.Element => {
 
     return (
         <View style={styles.footer}>
+            <Total />
             <View style={styles.buttonContainer}>
-                <Button accessibilityLabel="Press here to throw all the dice" title="Throw all!" onPress={onRoll} />
+                <Button
+                    accessibilityLabel="Press here to throw all the dice"
+                    loading={stateRolling}
+                    mode="contained"
+                    onPress={onRoll}
+                >
+                    Throw all!
+                </Button>
             </View>
             <View style={styles.buttonContainer}>
-                <Button accessibilityLabel="Press here to add a dice" title="Add" onPress={onAdd} />
+                <Button accessibilityLabel="Press here to add a dice" mode="outlined" onPress={onAdd}>
+                    Add
+                </Button>
             </View>
         </View>
     )
